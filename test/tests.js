@@ -51,4 +51,14 @@ describe('Hoax.js Test Suite', () => {
       'candy rivers',
     ]);
   });
+
+  it('should trigger and return from fake function', () => {
+    const mock = hoax(process, 'cwd', () => '/fake/path/');
+
+    const value = process.cwd();
+
+    mock.reset();
+
+    expect(value).to.be.eql('/fake/path/');
+  });
 });

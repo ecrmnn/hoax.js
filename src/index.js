@@ -3,7 +3,7 @@
 const mocks = {};
 let iterator = 0;
 
-module.exports = (obj, method) => {
+module.exports = (obj, method, fn = null) => {
   iterator += 1;
 
   const f = obj;
@@ -14,7 +14,14 @@ module.exports = (obj, method) => {
     original: obj[method],
   };
 
-  f[method] = (...args) => mocks[id].calls.push(args);
+  // eslint-disable-next-line consistent-return
+  f[method] = (...args) => {
+    mocks[id].calls.push(args);
+
+    if (fn) {
+      return fn(args);
+    }
+  };
 
   return {
     calls: mocks[id].calls,

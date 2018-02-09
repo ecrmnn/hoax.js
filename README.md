@@ -37,6 +37,17 @@ mock.reset();
 
 // Does log to console
 console.log('This will be logged');
+
+// You may also provide a function to return whatever you want 
+const mock = hoax(process, 'cwd', () => '/fake/path');
+
+process.cwd();
+//=> /fake/path
+
+mock.reset();
+
+process.cwd();
+//=> /ecrmnn/hoax.js
 ```
 
 ### License
